@@ -4,12 +4,13 @@ namespace Calculator
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //Declaring and initilize variables
             bool menuLoop = true;
-            int num1, num2;
-            double result;
+            int menuOption;
+            double num1, num2, result;
+            
 
             //Menu
             while(menuLoop)
@@ -20,43 +21,66 @@ namespace Calculator
                 // Ask the user to choose an option.
                 Console.WriteLine("Choose an option from the following list:\n");
                 Console.WriteLine("\n1) Add");
-                Console.WriteLine("\n2) Subtract");
-                Console.WriteLine("\n3) Multiply");
-                Console.WriteLine("\n4) Divide");
+                Console.WriteLine("2) Subtract");
+                Console.WriteLine("3) Multiply");
+                Console.WriteLine("4) Divide");
                 Console.WriteLine("\n\n0) Quit Calculator");
 
                 //Menu input
                 Console.Write("\nChoose option and press [Enter]: ");
-                int menuOption = Convert.ToInt32(Console.ReadLine());
-
-                // Ask the user to type the first number.
-                Console.WriteLine("Type a number, and then press Enter");
-                num1 = Convert.ToInt32(Console.ReadLine());
-
-                // Ask the user to type the second number.
-                Console.WriteLine("Type another number, and then press Enter");
-                num2 = Convert.ToInt32(Console.ReadLine());
-
+                menuOption = Convert.ToInt32(Console.ReadLine());
+                
                 switch (menuOption)
                 {
                     case 1: //Add
                         {
-                            result = Add(num1, num2);
+                            UserInput();
+                            result = Operator.Add(num1, num2);
+                            Console.WriteLine("{0} + {1} = {2}", num1,num2,result);
+
+                            Console.WriteLine("\nPress any key to return to menu...");
+                            Console.ReadKey();
                             break;
                         }
 
                     case 2: //Subract
                         {
+                            UserInput();
+                            result = Operator.Subtract(num1, num2);
+                            Console.WriteLine("{0} - {1} = {2}", num1, num2, result);
+
+                            Console.WriteLine("\nPress any key to return to menu...");
+                            Console.ReadKey();
                             break;
                         }
 
                     case 3: //Multiply
                         {
+                            UserInput();
+                            result = Operator.Multiply(num1, num2);
+                            Console.WriteLine("{0} * {1} = {2}", num1, num2, result);
+
+                            Console.WriteLine("\nPress any key to return to menu...");
+                            Console.ReadKey();
                             break;
                         }
 
                     case 4: //Divide
                         {
+                            UserInput();
+                            result = Operator.Divide(num1, num2);
+
+                            if (num2 == 0)
+                            {
+                                Console.WriteLine("\nThe denominator can not be zero");
+                            }
+                            else
+                            {
+                                Console.WriteLine("{0} / {1} = {2}", num1, num2, result);
+                            }                            
+
+                            Console.WriteLine("\nPress any key to return to menu...");
+                            Console.ReadKey();
                             break;
                         }
 
@@ -68,22 +92,24 @@ namespace Calculator
 
                     default:
                         {
-                            Console.WriteLine("The option is not in the selection.");
+                            Console.WriteLine("\nThe option is not in the selection.");
 
                             Console.WriteLine("\nPress any key to return to the menu ...");
                             Console.ReadKey();
                             break;
                         }
                 }
-
-
             }
 
-            
-            private static int Add(int addNum1, int addNum2)
+            void UserInput()
             {
-                int addResult = addNum1 + addNum2;
-                return addResult;
+                // Ask the user to type the first number.
+                Console.WriteLine("Type the first number, and then press Enter");
+                num1 = Convert.ToDouble(Console.ReadLine());
+
+                // Ask the user to type the second number.
+                Console.WriteLine("Type the second number, and then press Enter");
+                num2 = Convert.ToDouble(Console.ReadLine());                
             }
             
         }
